@@ -16,6 +16,13 @@ window.onload = function () {
       document.getElementById("terms").value = localStorage.customTerms;
     }
 
+    if (!localStorage.customSize) {
+      localStorage.setItem("customSize", "1920x1080");
+      document.getElementById("wpsize").value = localStorage.customSize;
+    } else {
+      document.getElementById("wpsize").value = localStorage.customSize;
+    }
+
     if (!localStorage.lastImage) {
       localStorage.setItem("lastImage", "");
     }
@@ -29,6 +36,8 @@ window.onload = function () {
 var fetchURL = localStorage.getItem("fetchUrl");
 var customTerms = localStorage.getItem("customTerms");
 var lastImage = localStorage.getItem("lastImage");
+var customSize = localStorage.getItem("customSize");
+
 
 function toDataURL(url, callback) {
   var xhr = new XMLHttpRequest();
@@ -63,6 +72,7 @@ function setWallpaper() {
   fs.writeFile("wallpaper.jpeg", buf, function (err, result) {
     if (err) {
       console.log("error", err);
+      UIkit.notification({message: err, status: 'danger'});
     } else {
       const filePath = "file://" + process.cwd() + "/wallpaper.jpeg";
       const setwall = spawn("gsettings", [
@@ -88,6 +98,10 @@ function setWallpaper() {
 }
 
 function configureWallpaper() {
+  customSize = document.getElementById("wpsize").value;
+  localStorage.setItem("customSize", customSize);
+  fetchURL = "https://source.unsplash.com/" + customSize + "/?wallpaper";
+  localStorage.setItem("fetchUrl", fetchURL);
   customTerms = document.getElementById("terms").value.replace(/\s/g, "");
   localStorage.setItem("customTerms", customTerms);
   location.reload();

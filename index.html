@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Unsplash Wallpaper</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/uikit.min.css" />
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+  </head>
+  <body>
+    <div id="loading" class="uk-position-cover">
+      <div
+        uk-spinner="ratio: 3"
+        class="uk-position-center uk-overlay uk-overlay-default"
+      ></div>
+    </div>
+    <div
+      id="wallpaper"
+      class="uk-background-cover uk-height-viewport uk-panel uk-flex uk-flex-center uk-flex-middle"
+    ></div>
+    <span
+      id="refreshWallpaper"
+      class="uk-icon-button uk-button-primary uk-position-bottom-left uk-margin-xlarge-bottom uk-margin-xlarge-left"
+      uk-icon="refresh"
+      uk-tooltip="title: Reload"
+      onclick="location.reload()"
+    >
+    </span>
+    </span>
+    <span
+      id="setWallpaper"
+      class="uk-icon-button uk-button-primary uk-position-bottom-right uk-margin-xlarge-bottom uk-margin-xlarge-right"
+      uk-icon="check"
+      uk-tooltip="title: Set wallpaper"
+      onclick="setWallpaper()"
+    >
+    </span>
+    <span
+      id="settings"
+      class="uk-icon-button uk-button-primary uk-position-top-right uk-margin-top uk-margin-right"
+      uk-icon="settings"
+      uk-tooltip="title: Configure"
+      uk-toggle="target: #modal-example"
+    >
+    <div id="modal-example" uk-modal>
+      <div class="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h3>Configure</h3>
+        <form class="uk-form-horizontal uk-margin-small">
+          <div class="uk-margin-small">
+            <label class="uk-form-label" for="terms">Topics</label>
+            <div class="uk-form-controls">
+              <input id="terms" class="uk-input" type="text" placeholder="hd, dark">
+            </div>
+          </div>
+          <div class="uk-margin-small">
+            <label class="uk-form-label" for="form-stacked-select">Select</label>
+            <div class="uk-form-controls">
+                <select class="uk-select" id="form-stacked-select">
+                  <option value="1280x720">1280 x 720 (HD)</option>
+                  <option value="1920x1080" selected>1920 x 1080 (Full HD)</option>
+                  <option value="2048x1080">2048 x 1080 (2K)</option>
+                  <option value="4096x2160">4096 x 2160 (4K)</option>
+                </select>
+            </div>
+          </div>
+        </form>
+        <p class="uk-text-right">
+          <button
+            class="uk-button uk-button-default uk-modal-close"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button class="uk-button uk-button-primary uk-modal-close" type="button" onclick="configureWallpaper()">
+            Save
+          </button>
+        </p>
+      </div>
+    </div>
+    <script src="js/renderer.js"></script>
+  </body>
+</html>

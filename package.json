@@ -1,0 +1,35 @@
+{
+  "name": "unsplash-wallpaper",
+  "productName": "unsplash-wallpaper",
+  "description": "Set random wallpapers from UnSplash.",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "gaurav-nelson",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "dist": "electron-builder --linux snap"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.52",
+    "@electron-forge/maker-deb": "6.0.0-beta.52",
+    "electron": "11.0.4",
+    "electron-builder": "^22.9.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        }
+      ]
+    }
+  }
+}

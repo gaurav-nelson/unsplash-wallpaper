@@ -3,24 +3,18 @@ const { spawn } = require("child_process");
 
 window.onload = function () {
   if (typeof Storage !== "undefined") {
-    if (!localStorage.fetchURL) {
-      localStorage.setItem(
-        "fetchUrl",
-        "https://source.unsplash.com/1920x1080/?wallpaper"
-      );
-    }
 
     if (!localStorage.customTerms) {
       localStorage.setItem("customTerms", "");
     } else {
-      document.getElementById("terms").value = localStorage.customTerms;
+      document.getElementById("terms").value = localStorage.getItem("customTerms");
     }
 
     if (!localStorage.customSize) {
       localStorage.setItem("customSize", "1920x1080");
-      document.getElementById("wpsize").value = localStorage.customSize;
+      document.getElementById("wpsize").value = localStorage.getItem("customSize");
     } else {
-      document.getElementById("wpsize").value = localStorage.customSize;
+      document.getElementById("wpsize").value = localStorage.getItem("customSize");
     }
 
     if (!localStorage.lastImage) {
@@ -33,10 +27,10 @@ window.onload = function () {
   }
 };
 
-var fetchURL = localStorage.getItem("fetchUrl");
 var customTerms = localStorage.getItem("customTerms");
 var lastImage = localStorage.getItem("lastImage");
 var customSize = localStorage.getItem("customSize");
+var fetchURL = "https://source.unsplash.com/" + customSize + "/?wallpaper," + customTerms;
 
 
 function toDataURL(url, callback) {
@@ -55,7 +49,7 @@ function toDataURL(url, callback) {
 
 var base64image = "";
 
-toDataURL(fetchURL + "," + customTerms, function (dataUrl) {
+toDataURL(fetchURL, function (dataUrl) {
   base64image = dataUrl;
   if (base64image === lastImage) {
     location.reload();
@@ -100,8 +94,6 @@ function setWallpaper() {
 function configureWallpaper() {
   customSize = document.getElementById("wpsize").value;
   localStorage.setItem("customSize", customSize);
-  fetchURL = "https://source.unsplash.com/" + customSize + "/?wallpaper";
-  localStorage.setItem("fetchUrl", fetchURL);
   customTerms = document.getElementById("terms").value.replace(/\s/g, "");
   localStorage.setItem("customTerms", customTerms);
   location.reload();

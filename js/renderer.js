@@ -1,20 +1,25 @@
 const fs = require("fs");
-const { spawn } = require("child_process");
+const wallpaper = require("wallpaper");
 
 window.onload = function () {
   if (typeof Storage !== "undefined") {
-
     if (!localStorage.customTerms) {
       localStorage.setItem("customTerms", "");
     } else {
-      document.getElementById("terms").value = localStorage.getItem("customTerms");
+      document.getElementById("terms").value = localStorage.getItem(
+        "customTerms"
+      );
     }
 
     if (!localStorage.customSize) {
       localStorage.setItem("customSize", "1920x1080");
-      document.getElementById("wpsize").value = localStorage.getItem("customSize");
+      document.getElementById("wpsize").value = localStorage.getItem(
+        "customSize"
+      );
     } else {
-      document.getElementById("wpsize").value = localStorage.getItem("customSize");
+      document.getElementById("wpsize").value = localStorage.getItem(
+        "customSize"
+      );
     }
 
     if (!localStorage.lastImage) {
@@ -30,8 +35,8 @@ window.onload = function () {
 var customTerms = localStorage.getItem("customTerms");
 var lastImage = localStorage.getItem("lastImage");
 var customSize = localStorage.getItem("customSize");
-var fetchURL = "https://source.unsplash.com/" + customSize + "/?wallpaper," + customTerms;
-
+var fetchURL =
+  "https://source.unsplash.com/" + customSize + "/?wallpaper," + customTerms;
 
 function toDataURL(url, callback) {
   var xhr = new XMLHttpRequest();
@@ -66,27 +71,29 @@ function setWallpaper() {
   fs.writeFile("wallpaper.jpeg", buf, function (err, result) {
     if (err) {
       console.log("error", err);
-      UIkit.notification({message: err, status: 'danger'});
+      UIkit.notification({
+        message: "<span uk-icon='icon: warning'></span>" + err,
+        status: "danger",
+      });
     } else {
-      const filePath = "file://" + process.cwd() + "/wallpaper.jpeg";
-      const setwall = spawn("gsettings", [
-        "set",
-        "org.gnome.desktop.background",
-        "picture-uri",
-        filePath,
-      ]);
-
-      setwall.stdout.on("data", (data) => {
-        console.log(`stdout: ${data}`);
-      });
-
-      setwall.stderr.on("data", (data) => {
-        console.log(`stderr: ${data}`);
-      });
-
-      setwall.on("close", (code) => {
-        console.log(`child process exited with code ${code}`);
-      });
+      const filePath = process.cwd() + "/wallpaper.jpeg";
+      try {
+        let wallpaperSet = async () => {
+          await wallpaper.set(filePath);
+        };
+        wallpaperSet().then(
+          UIkit.notification({
+            message: "<span uk-icon='icon: check'></span> Done!",
+            status: "success",
+            timeout: 500,
+          })
+        );
+      } catch (error) {
+        UIkit.notification({
+          message: "<span uk-icon='icon: warning'></span>" + error,
+          status: "danger",
+        });
+      }
     }
   });
 }

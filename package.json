@@ -2,52 +2,49 @@
   "name": "unsplash-wallpaper",
   "productName": "unsplash-wallpaper",
   "description": "Set random wallpapers from UnSplash.",
-  "keywords": [],
+  "keywords": [
+    "unsplash",
+    "wallpaper",
+    "random"
+  ],
   "main": "./main.js",
   "version": "1.2.0",
   "author": "gaurav-nelson",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\"",
-    "snap": "electron-builder --linux snap",
-    "app": "electron-builder --linux appImage"
+    "start": "electron .",
+    "release": "electron-builder",
+    "snap": "electron-builder --linux snap"
   },
   "dependencies": {
     "wallpaper": "^4.4.2"
   },
   "devDependencies": {
-    "@electron-forge/cli": "6.0.0-beta.52",
-    "@electron-forge/maker-deb": "6.0.0-beta.52",
-    "@electron-forge/maker-flatpak": "^6.0.0-beta.54",
     "electron": "11.0.4",
     "electron-builder": "^22.9.1"
   },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
+  "build": {
+    "appId": "io.unsplash-wallpaper.app",
+    "publish": "github",
+    "dmg": {
+      "contents": [
         {
-          "name": "@electron-forge/maker-deb",
-          "config": {
-            "options": {
-              "categories": ["Utility"],
-              "icon": "./build/icons/256x256.png"
-            }
-          }
+          "x": 110,
+          "y": 150
         },
         {
-          "name": "@electron-forge/maker-flatpak",
-          "config": {
-            "options": {
-              "categories": ["Utility"],
-              "icon": "./build/icons/256x256.png"
-            }
-          }
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
         }
       ]
+    },
+    "appImage": {
+      "license": "LICENSE"
+    },
+    "nsis": {
+      "createDesktopShortcut": "always",
+      "license": "LICENSE"
     }
   }
 }

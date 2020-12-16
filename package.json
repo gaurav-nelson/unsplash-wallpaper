@@ -4,7 +4,7 @@
   "description": "Set random wallpapers from UnSplash.",
   "keywords": [],
   "main": "./main.js",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "author": "gaurav-nelson",
   "scripts": {
     "start": "electron-forge start",
@@ -12,7 +12,8 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
-    "dist": "electron-builder --linux snap"
+    "snap": "electron-builder --linux snap",
+    "app": "electron-builder --linux appImage"
   },
   "dependencies": {
     "wallpaper": "^4.4.2"
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.52",
     "@electron-forge/maker-deb": "6.0.0-beta.52",
+    "@electron-forge/maker-flatpak": "^6.0.0-beta.54",
     "electron": "11.0.4",
     "electron-builder": "^22.9.1"
   },
@@ -29,7 +31,21 @@
       "makers": [
         {
           "name": "@electron-forge/maker-deb",
-          "config": {}
+          "config": {
+            "options": {
+              "categories": ["Utility"],
+              "icon": "./build/icons/256x256.png"
+            }
+          }
+        },
+        {
+          "name": "@electron-forge/maker-flatpak",
+          "config": {
+            "options": {
+              "categories": ["Utility"],
+              "icon": "./build/icons/256x256.png"
+            }
+          }
         }
       ]
     }

@@ -14,7 +14,9 @@
     "lint": "echo \"No linting configured\"",
     "dist": "electron-builder --linux snap"
   },
-  "dependencies": {},
+  "dependencies": {
+    "wallpaper": "^4.4.2"
+  },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.52",
     "@electron-forge/maker-deb": "6.0.0-beta.52",
